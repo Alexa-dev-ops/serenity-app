@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serenity — AI Recovery Companion</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --base:      #FAFAF8;
-      --surface:   #F5F0E8;
-      --surface2:  #EDE5D8;
-      --border:    #E0D5C5;
-      --border2:   #C4A882;
-      --brown-lt:  #C4A882;
-      --brown:     #8B6F47;
-      --brown-dk:  #3D2B1F;
-      --text:      #3D2B1F;
-      --text2:     #7A6A5A;
-      --text3:     #B0A090;
-      --sage:      #6A9E6E;
-      --sage-bg:   #EAF3EA;
-      --serif:     'Cormorant Garamond', Georgia, serif;
-      --sans:      'DM Sans', system-ui, sans-serif;
-      --shadow:    0 2px 8px rgba(61,43,31,0.06);
-      --shadow-md: 0 8px 28px rgba(61,43,31,0.10);
-      --shadow-lg: 0 20px 56px rgba(61,43,31,0.13);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity — AI Recovery Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --base: #FAFAF8;
+      --surface: #F5F0E8;
+      --surface2: #EDE5D8;
+      --border: #E0D5C5;
+      --border2: #C4A882;
+      --brown-lt: #C4A882;
+      --brown: #8B6F47;
+      --brown-dk: #3D2B1F;
+      --text: #3D2B1F;
+      --text2: #7A6A5A;
+      --text3: #B0A090;
+      --sage: #6A9E6E;
+      --sage-bg: #EAF3EA;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --shadow: 0 2px 8px rgba(61, 43, 31, 0.06);
+      --shadow-md: 0 8px 28px rgba(61, 43, 31, 0.10);
+      --shadow-lg: 0 20px 56px rgba(61, 43, 31, 0.13);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: var(--base);
       color: var(--text);
@@ -41,122 +53,233 @@
     }
 
     /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
+
     @keyframes floatOrb {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50%       { transform: translateY(-18px) scale(1.03); }
+
+      0%,
+      100% {
+        transform: translateY(0px) scale(1);
+      }
+
+      50% {
+        transform: translateY(-18px) scale(1.03);
+      }
     }
+
     @keyframes shimmerLine {
-      0%   { width: 0; opacity: 0; }
-      20%  { opacity: 1; }
-      100% { width: 48px; opacity: 1; }
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        width: 48px;
+        opacity: 1;
+      }
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1; } 50% { opacity: 0; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
+
     @keyframes revealUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 20px 60px;
-      background: rgba(250,250,248,0.88);
+      background: rgba(250, 250, 248, 0.88);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid transparent;
       transition: border-color .3s, box-shadow .3s;
     }
+
     nav.scrolled {
       border-color: var(--border);
       box-shadow: var(--shadow);
     }
+
     .nav-logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
     }
+
     .nav-orb {
-      width: 32px; height: 32px; border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
       background: linear-gradient(135deg, var(--brown-lt), var(--brown));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; color: #fff;
-      box-shadow: 0 3px 10px rgba(139,111,71,.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(139, 111, 71, .28);
     }
+
     .nav-brand {
-      font-family: var(--serif); font-size: 19px; font-weight: 500;
-      color: var(--brown-dk); letter-spacing: .02em;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--brown-dk);
+      letter-spacing: .02em;
     }
+
     .nav-cta {
-      padding: 10px 24px; border-radius: 100px;
+      padding: 10px 24px;
+      border-radius: 100px;
       background: linear-gradient(135deg, var(--brown-lt), var(--brown));
-      color: #fff; text-decoration: none;
-      font-size: 13px; font-weight: 500; letter-spacing: .04em;
-      box-shadow: 0 3px 12px rgba(139,111,71,.25);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      box-shadow: 0 3px 12px rgba(139, 111, 71, .25);
       transition: all .2s;
     }
+
     .nav-cta:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(139,111,71,.32);
+      box-shadow: 0 6px 20px rgba(139, 111, 71, .32);
     }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       padding: 120px 40px 80px;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
 
     /* Ambient orbs */
     .orb {
-      position: absolute; border-radius: 50%;
-      pointer-events: none; will-change: transform;
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
     }
+
     .orb-1 {
-      width: 520px; height: 520px;
-      background: radial-gradient(circle, rgba(196,168,130,.14) 0%, transparent 70%);
-      top: -80px; left: -120px;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(196, 168, 130, .14) 0%, transparent 70%);
+      top: -80px;
+      left: -120px;
       animation: floatOrb 9s ease-in-out infinite;
     }
+
     .orb-2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(139,111,71,.09) 0%, transparent 70%);
-      bottom: -60px; right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(139, 111, 71, .09) 0%, transparent 70%);
+      bottom: -60px;
+      right: -100px;
       animation: floatOrb 12s ease-in-out infinite reverse;
     }
+
     .orb-3 {
-      width: 280px; height: 280px;
-      background: radial-gradient(circle, rgba(106,158,110,.07) 0%, transparent 70%);
-      top: 40%; left: 60%;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(106, 158, 110, .07) 0%, transparent 70%);
+      top: 40%;
+      left: 60%;
       animation: floatOrb 7s ease-in-out infinite 2s;
     }
 
     .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 16px; border-radius: 100px;
-      background: var(--surface); border: 1px solid var(--border2);
-      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--brown); font-weight: 500; margin-bottom: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 500;
+      margin-bottom: 36px;
       animation: fadeIn .6s ease .2s both;
     }
+
     .eyebrow-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--sage); flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      flex-shrink: 0;
     }
 
     .hero-headline {
@@ -171,267 +294,556 @@
       animation: fadeUp .8s ease .4s both;
       min-height: 2.2em;
     }
+
     .hero-headline em {
       font-style: italic;
       color: var(--brown);
     }
+
     .cursor {
       display: inline-block;
-      width: 2px; height: .85em;
+      width: 2px;
+      height: .85em;
       background: var(--brown-lt);
       margin-left: 3px;
       vertical-align: middle;
       animation: blink .8s step-end infinite;
     }
-    .cursor.done { display: none; }
+
+    .cursor.done {
+      display: none;
+    }
 
     .hero-sub {
       font-size: clamp(16px, 2vw, 19px);
-      color: var(--text2); line-height: 1.65;
-      max-width: 540px; margin-bottom: 48px;
+      color: var(--text2);
+      line-height: 1.65;
+      max-width: 540px;
+      margin-bottom: 48px;
       font-weight: 300;
       animation: fadeUp .8s ease .6s both;
     }
 
     .hero-actions {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
       animation: fadeUp .8s ease .8s both;
     }
+
     .btn-primary {
-      padding: 15px 36px; border-radius: 100px;
+      padding: 15px 36px;
+      border-radius: 100px;
       background: linear-gradient(135deg, var(--brown-lt), var(--brown));
-      color: #fff; text-decoration: none;
-      font-size: 14px; font-weight: 500; letter-spacing: .05em;
-      box-shadow: 0 4px 18px rgba(139,111,71,.28);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      box-shadow: 0 4px 18px rgba(139, 111, 71, .28);
       transition: all .22s;
-      border: none; cursor: pointer; font-family: var(--sans);
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(139,111,71,.35); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(139, 111, 71, .35);
+    }
+
     .btn-ghost {
-      padding: 15px 32px; border-radius: 100px;
-      border: 1px solid var(--border2); background: transparent;
-      color: var(--brown); text-decoration: none;
-      font-size: 14px; font-weight: 500; letter-spacing: .05em;
-      transition: all .22s; font-family: var(--sans); cursor: pointer;
+      padding: 15px 32px;
+      border-radius: 100px;
+      border: 1px solid var(--border2);
+      background: transparent;
+      color: var(--brown);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      transition: all .22s;
+      font-family: var(--sans);
+      cursor: pointer;
     }
-    .btn-ghost:hover { background: var(--surface); border-color: var(--brown); }
+
+    .btn-ghost:hover {
+      background: var(--surface);
+      border-color: var(--brown);
+    }
 
     .hero-trust {
       margin-top: 64px;
-      display: flex; align-items: center; gap: 32px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
       animation: fadeUp .8s ease 1s both;
-      flex-wrap: wrap; justify-content: center;
+      flex-wrap: wrap;
+      justify-content: center;
     }
+
     .trust-item {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
     }
+
     .trust-num {
-      font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--brown-dk);
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--brown-dk);
     }
-    .trust-label { font-size: 11px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; }
-    .trust-div { width: 1px; height: 40px; background: var(--border); }
+
+    .trust-label {
+      font-size: 11px;
+      color: var(--text3);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .trust-div {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
 
     /* ── SECTION SHARED ── */
-    section { padding: 100px 60px; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-eyebrow {
-      font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--brown-lt); font-weight: 600; margin-bottom: 12px;
+    section {
+      padding: 100px 60px;
     }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--brown-lt);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
     .section-title {
-      font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
-      font-weight: 300; color: var(--brown-dk); line-height: 1.15;
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      color: var(--brown-dk);
+      line-height: 1.15;
       margin-bottom: 16px;
     }
+
     .section-sub {
-      font-size: 16px; color: var(--text2); line-height: 1.7;
-      max-width: 520px; font-weight: 300;
+      font-size: 16px;
+      color: var(--text2);
+      line-height: 1.7;
+      max-width: 520px;
+      font-weight: 300;
     }
 
     /* reveal on scroll */
     .reveal {
-      opacity: 0; transform: translateY(28px);
+      opacity: 0;
+      transform: translateY(28px);
       transition: opacity .6s ease, transform .6s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── FEATURES ── */
-    .features { background: #fff; }
+    .features {
+      background: #fff;
+    }
+
     .features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       margin-top: 64px;
     }
+
     .feat-card {
-      padding: 32px; border-radius: 20px;
+      padding: 32px;
+      border-radius: 20px;
       border: 1px solid var(--border);
       background: var(--base);
       transition: all .25s;
     }
+
     .feat-card:hover {
       border-color: var(--border2);
       box-shadow: var(--shadow-md);
       transform: translateY(-4px);
     }
+
     .feat-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: linear-gradient(135deg, rgba(196,168,130,.2), rgba(139,111,71,.1));
-      border: 1px solid rgba(196,168,130,.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; margin-bottom: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(196, 168, 130, .2), rgba(139, 111, 71, .1));
+      border: 1px solid rgba(196, 168, 130, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
+
     .feat-title {
-      font-family: var(--serif); font-size: 21px; font-weight: 400;
-      color: var(--brown-dk); margin-bottom: 10px; line-height: 1.2;
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--brown-dk);
+      margin-bottom: 10px;
+      line-height: 1.2;
     }
-    .feat-body { font-size: 14px; color: var(--text2); line-height: 1.7; font-weight: 300; }
+
+    .feat-body {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+      font-weight: 300;
+    }
 
     /* ── HOW IT WORKS ── */
-    .how { background: var(--surface); }
-    .how-steps {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0; margin-top: 64px; position: relative;
+    .how {
+      background: var(--surface);
     }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 64px;
+      position: relative;
+    }
+
     .how-steps::before {
       content: '';
-      position: absolute; top: 28px; left: calc(16.66% + 20px); right: calc(16.66% + 20px);
-      height: 1px; background: var(--border2);
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 20px);
+      right: calc(16.66% + 20px);
+      height: 1px;
+      background: var(--border2);
       opacity: .4;
     }
-    .how-step { padding: 0 32px; text-align: center; }
+
+    .how-step {
+      padding: 0 32px;
+      text-align: center;
+    }
+
     .how-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: #fff; border: 1px solid var(--border2);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif); font-size: 22px; font-weight: 400;
-      color: var(--brown); margin: 0 auto 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--brown);
+      margin: 0 auto 24px;
       box-shadow: var(--shadow);
     }
+
     .how-title {
-      font-family: var(--serif); font-size: 22px; font-weight: 400;
-      color: var(--brown-dk); margin-bottom: 12px;
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--brown-dk);
+      margin-bottom: 12px;
     }
-    .how-body { font-size: 14px; color: var(--text2); line-height: 1.7; font-weight: 300; }
+
+    .how-body {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+      font-weight: 300;
+    }
 
     /* ── TESTIMONIAL ── */
-    .testimonial { background: #fff; text-align: center; }
+    .testimonial {
+      background: #fff;
+      text-align: center;
+    }
+
     .quote-mark {
-      font-family: var(--serif); font-size: 120px; font-weight: 300;
-      color: var(--border2); line-height: .6; margin-bottom: 24px;
+      font-family: var(--serif);
+      font-size: 120px;
+      font-weight: 300;
+      color: var(--border2);
+      line-height: .6;
+      margin-bottom: 24px;
       display: block;
     }
+
     .quote-text {
-      font-family: var(--serif); font-size: clamp(22px, 3vw, 36px);
-      font-weight: 300; font-style: italic;
-      color: var(--brown-dk); line-height: 1.5;
-      max-width: 760px; margin: 0 auto 32px;
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown-dk);
+      line-height: 1.5;
+      max-width: 760px;
+      margin: 0 auto 32px;
     }
+
     .quote-attr {
-      font-size: 13px; color: var(--text3);
-      letter-spacing: .08em; text-transform: uppercase;
+      font-size: 13px;
+      color: var(--text3);
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
     /* ── APP PREVIEW ── */
-    .preview { background: var(--surface); }
-    .preview-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    .preview {
+      background: var(--surface);
     }
-    .preview-text .section-sub { margin-bottom: 32px; }
+
+    .preview-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .preview-text .section-sub {
+      margin-bottom: 32px;
+    }
+
     .preview-screen {
-      background: #fff; border-radius: 20px;
-      border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
       overflow: hidden;
     }
+
     .screen-bar {
-      padding: 14px 20px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px; background: var(--surface);
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
     }
-    .screen-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .screen-body { padding: 28px; }
+
+    .screen-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .screen-body {
+      padding: 28px;
+    }
+
     .screen-row {
-      display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
     }
+
     .screen-avatar {
-      width: 36px; height: 36px; border-radius: 9px;
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
       background: linear-gradient(135deg, var(--brown-lt), var(--brown));
       flex-shrink: 0;
     }
+
     .screen-bubble {
-      padding: 12px 16px; border-radius: 12px 12px 12px 3px;
-      background: var(--surface); border: 1px solid var(--border);
-      font-size: 13px; color: var(--text2); line-height: 1.55;
-      font-weight: 300; max-width: 280px;
+      padding: 12px 16px;
+      border-radius: 12px 12px 12px 3px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.55;
+      font-weight: 300;
+      max-width: 280px;
     }
+
     .screen-bubble.user {
       border-radius: 12px 12px 3px 12px;
-      background: linear-gradient(135deg, rgba(196,168,130,.15), rgba(139,111,71,.08));
-      border-color: rgba(196,168,130,.3);
+      background: linear-gradient(135deg, rgba(196, 168, 130, .15), rgba(139, 111, 71, .08));
+      border-color: rgba(196, 168, 130, .3);
       color: var(--brown-dk);
       margin-left: auto;
     }
+
     .screen-stat-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
     }
+
     .screen-stat {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
     }
+
     .screen-stat-num {
-      font-family: var(--serif); font-size: 22px; color: var(--brown-dk);
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--brown-dk);
     }
+
     .screen-stat-label {
-      font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px;
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 2px;
     }
 
     /* ── FINAL CTA ── */
     .final-cta {
       background: linear-gradient(160deg, var(--brown-dk) 0%, #5C3D26 100%);
-      text-align: center; padding: 120px 60px;
+      text-align: center;
+      padding: 120px 60px;
     }
-    .final-cta .section-eyebrow { color: var(--brown-lt); }
-    .final-cta .section-title   { color: #fff; }
-    .final-cta .section-sub     { color: rgba(255,255,255,.65); margin: 0 auto 48px; }
+
+    .final-cta .section-eyebrow {
+      color: var(--brown-lt);
+    }
+
+    .final-cta .section-title {
+      color: #fff;
+    }
+
+    .final-cta .section-sub {
+      color: rgba(255, 255, 255, .65);
+      margin: 0 auto 48px;
+    }
+
     .final-cta .btn-primary {
       background: linear-gradient(135deg, var(--brown-lt), #c4a882dd);
       color: var(--brown-dk);
     }
+
     .final-cta .btn-ghost {
-      border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.8);
+      border-color: rgba(255, 255, 255, .3);
+      color: rgba(255, 255, 255, .8);
     }
-    .final-cta .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.5); }
+
+    .final-cta .btn-ghost:hover {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .5);
+    }
 
     /* ── FOOTER ── */
     footer {
       padding: 40px 60px;
       border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       background: var(--base);
     }
-    .footer-copy { font-size: 12.5px; color: var(--text3); }
-    .footer-links { display: flex; gap: 28px; }
-    .footer-links a { font-size: 12.5px; color: var(--text3); text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: var(--brown); }
+
+    .footer-copy {
+      font-size: 12.5px;
+      color: var(--text3);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 12.5px;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--brown);
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 18px 28px; }
-      section { padding: 72px 28px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .how-steps { grid-template-columns: 1fr; gap: 48px; }
-      .how-steps::before { display: none; }
-      .preview-inner { grid-template-columns: 1fr; }
-      .final-cta { padding: 80px 28px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+      nav {
+        padding: 18px 28px;
+      }
+
+      section {
+        padding: 72px 28px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .how-steps {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .how-steps::before {
+        display: none;
+      }
+
+      .preview-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .final-cta {
+        padding: 80px 28px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
     }
+
     @media (max-width: 600px) {
-      .trust-div { display: none; }
-      .hero-trust { gap: 20px; }
+      .trust-div {
+        display: none;
+      }
+
+      .hero-trust {
+        gap: 20px;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ── NAV ── -->
@@ -440,7 +852,7 @@
       <div class="nav-orb">✦</div>
       <span class="nav-brand">Serenity</span>
     </a>
-    <a class="nav-cta" href="#start">Begin your recovery</a>
+    <a class="nav-cta" href="https://serenity-app-mu.vercel.app">Begin your recovery</a>
   </nav>
 
   <!-- ── HERO ── -->
@@ -464,7 +876,7 @@
     </p>
 
     <div class="hero-actions">
-      <a class="btn-primary" href="#">Create a free account</a>
+      <a class="btn-primary" href="https://serenity-app-mu.vercel.app">Create a free account</a>
       <a class="btn-ghost" href="#features">See how it works</a>
     </div>
 
@@ -496,32 +908,38 @@
         <div class="feat-card reveal">
           <div class="feat-icon">🧠</div>
           <div class="feat-title">AI Emotional Support</div>
-          <div class="feat-body">A recovery-trained AI companion that responds using CBT, ACT, and Motivational Interviewing — not generic chat. It knows your history and speaks to where you actually are.</div>
+          <div class="feat-body">A recovery-trained AI companion that responds using CBT, ACT, and Motivational
+            Interviewing — not generic chat. It knows your history and speaks to where you actually are.</div>
         </div>
         <div class="feat-card reveal" style="transition-delay:.1s">
           <div class="feat-icon">📊</div>
           <div class="feat-title">Live Relapse Risk Score</div>
-          <div class="feat-body">A score computed from your mood, urge intensity, and recovery streak — updated every time you check in. Not a static label. An honest picture of where you are today.</div>
+          <div class="feat-body">A score computed from your mood, urge intensity, and recovery streak — updated every
+            time you check in. Not a static label. An honest picture of where you are today.</div>
         </div>
         <div class="feat-card reveal" style="transition-delay:.2s">
           <div class="feat-icon">📓</div>
           <div class="feat-title">Private Journal</div>
-          <div class="feat-body">Write without filtering. Each entry gets an AI-generated reflection prompt designed to help you go deeper — not to judge, but to surface what's already there.</div>
+          <div class="feat-body">Write without filtering. Each entry gets an AI-generated reflection prompt designed to
+            help you go deeper — not to judge, but to surface what's already there.</div>
         </div>
         <div class="feat-card reveal" style="transition-delay:.05s">
           <div class="feat-icon">✅</div>
           <div class="feat-title">Daily Check-Ins</div>
-          <div class="feat-body">Log your mood and urge intensity in under a minute. Your answers feed the risk engine, build your streak, and help Serenity respond to you more accurately over time.</div>
+          <div class="feat-body">Log your mood and urge intensity in under a minute. Your answers feed the risk engine,
+            build your streak, and help Serenity respond to you more accurately over time.</div>
         </div>
         <div class="feat-card reveal" style="transition-delay:.15s">
           <div class="feat-icon">🗺️</div>
           <div class="feat-title">Recovery Plans</div>
-          <div class="feat-body">Structured programmes — CBT, ACT, MI, CRAFT, DBT — created for your specific focus. Progress tracked week by week, updated by you at your own pace.</div>
+          <div class="feat-body">Structured programmes — CBT, ACT, MI, CRAFT, DBT — created for your specific focus.
+            Progress tracked week by week, updated by you at your own pace.</div>
         </div>
         <div class="feat-card reveal" style="transition-delay:.25s">
           <div class="feat-icon">🚨</div>
           <div class="feat-title">Emergency Tools</div>
-          <div class="feat-body">A panic button that opens a live grounding protocol and breathing timer. Crisis line numbers always one tap away. Built for the moments when you need something that works fast.</div>
+          <div class="feat-body">A panic button that opens a live grounding protocol and breathing timer. Crisis line
+            numbers always one tap away. Built for the moments when you need something that works fast.</div>
         </div>
       </div>
     </div>
@@ -532,23 +950,27 @@
     <div class="section-inner">
       <p class="section-eyebrow reveal">How it works</p>
       <h2 class="section-title reveal">Three things, every day</h2>
-      <p class="section-sub reveal">Recovery doesn't require a dramatic routine. Serenity asks for three small honest acts.</p>
+      <p class="section-sub reveal">Recovery doesn't require a dramatic routine. Serenity asks for three small honest
+        acts.</p>
 
       <div class="how-steps">
         <div class="how-step reveal">
           <div class="how-num">1</div>
           <div class="how-title">Check in</div>
-          <div class="how-body">Rate your mood and urge intensity. Takes under a minute. This single act feeds your risk score and keeps your streak alive.</div>
+          <div class="how-body">Rate your mood and urge intensity. Takes under a minute. This single act feeds your risk
+            score and keeps your streak alive.</div>
         </div>
         <div class="how-step reveal" style="transition-delay:.12s">
           <div class="how-num">2</div>
           <div class="how-title">Talk to Serenity</div>
-          <div class="how-body">Tell the AI what's happening. It already knows your risk level and your history. It won't give you generic advice — it knows where you are today.</div>
+          <div class="how-body">Tell the AI what's happening. It already knows your risk level and your history. It
+            won't give you generic advice — it knows where you are today.</div>
         </div>
         <div class="how-step reveal" style="transition-delay:.24s">
           <div class="how-num">3</div>
           <div class="how-title">Track your progress</div>
-          <div class="how-body">Watch your mood trend build. See your relapse risk move in real time. A streak you can actually see is a streak that's harder to break.</div>
+          <div class="how-body">Watch your mood trend build. See your relapse risk move in real time. A streak you can
+            actually see is a streak that's harder to break.</div>
         </div>
       </div>
     </div>
@@ -559,16 +981,21 @@
     <div class="preview-inner">
       <div class="preview-text reveal">
         <p class="section-eyebrow">In the app</p>
-        <h2 class="section-title">Your recovery,<br><em style="font-style:italic;color:var(--brown)">clearly seen</em></h2>
-        <p class="section-sub">The Serenity dashboard shows your streak, your mood trend, and your live risk score — all in one clean view. Nothing is hidden, nothing is sugarcoated.</p>
-        <a class="btn-primary" href="#" style="display:inline-block;margin-top:0;padding:13px 28px;text-decoration:none;border-radius:100px;">Open the app</a>
+        <h2 class="section-title">Your recovery,<br><em style="font-style:italic;color:var(--brown)">clearly seen</em>
+        </h2>
+        <p class="section-sub">The Serenity dashboard shows your streak, your mood trend, and your live risk score — all
+          in one clean view. Nothing is hidden, nothing is sugarcoated.</p>
+        <a class="btn-primary" href="https://serenity-app-mu.vercel.app"
+          style="display:inline-block;margin-top:0;padding:13px 28px;text-decoration:none;border-radius:100px;">Open the
+          app</a>
       </div>
       <div class="preview-screen reveal" style="transition-delay:.15s">
         <div class="screen-bar">
           <div class="screen-dot" style="background:#E8C4C0"></div>
           <div class="screen-dot" style="background:#E8DDB0"></div>
           <div class="screen-dot" style="background:#C4D8C0"></div>
-          <span style="font-size:11px;color:var(--text3);margin-left:8px;font-family:var(--sans)">Serenity · AI Support</span>
+          <span style="font-size:11px;color:var(--text3);margin-left:8px;font-family:var(--sans)">Serenity · AI
+            Support</span>
         </div>
         <div class="screen-body">
           <div class="screen-stat-row" style="margin-bottom:20px">
@@ -587,14 +1014,16 @@
           </div>
           <div class="screen-row">
             <div class="screen-avatar"></div>
-            <div class="screen-bubble">I can see your urge intensity has been elevated for two days. What's been happening around you?</div>
+            <div class="screen-bubble">I can see your urge intensity has been elevated for two days. What's been
+              happening around you?</div>
           </div>
           <div class="screen-row" style="flex-direction:row-reverse">
             <div class="screen-bubble user">Ran into someone from before. It's been hard to shake.</div>
           </div>
           <div class="screen-row">
             <div class="screen-avatar"></div>
-            <div class="screen-bubble">That's cue-reactivity — your brain recognising a person tied to past use. It's neurological, not weakness. What can you put between yourself and that memory tonight?</div>
+            <div class="screen-bubble">That's cue-reactivity — your brain recognising a person tied to past use. It's
+              neurological, not weakness. What can you put between yourself and that memory tonight?</div>
           </div>
         </div>
       </div>
@@ -618,10 +1047,11 @@
     <div class="section-inner" style="text-align:center">
       <p class="section-eyebrow reveal">Start today</p>
       <h2 class="section-title reveal">Your first check-in<br>takes 60 seconds</h2>
-      <p class="section-sub reveal">No referral. No waitlist. Create a free account and begin tracking your recovery today.</p>
+      <p class="section-sub reveal">No referral. No waitlist. Create a free account and begin tracking your recovery
+        today.</p>
       <div class="hero-actions reveal" style="justify-content:center">
-        <a class="btn-primary" href="#">Create a free account</a>
-        <a class="btn-ghost" href="#">Learn more</a>
+        <a class="btn-primary" href="https://serenity-app-mu.vercel.app">Create a free account</a>
+        <a class="btn-ghost" href="#features">Learn more</a>
       </div>
     </div>
   </section>
@@ -650,7 +1080,7 @@
       "Recovery happens\none day at a time.",
       "Your progress\nis real. So is today."
     ];
-    const typedEl  = document.getElementById('typed-text');
+    const typedEl = document.getElementById('typed-text');
     const cursorEl = document.getElementById('cursor');
     let lineIdx = 0;
 
@@ -715,4 +1145,5 @@
     reveals.forEach(el => observer.observe(el));
   </script>
 </body>
+
 </html>
