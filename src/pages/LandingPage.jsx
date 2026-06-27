@@ -276,7 +276,7 @@ export default function LandingPage() {
 
       <footer>
         <div className="footer-copy">© 2026 Serenity. Built with care for recovery.</div>
-        <div class="footer-links">
+        <div className="footer-links">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
           <a href="#">Crisis Support</a>
