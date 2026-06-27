@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from
 import { STYLES, IC } from "./components/UI";
 import { useAuth } from "./hooks/useAuth";
 import { useDashboard } from "./hooks/useDashboard";
+import './index.css';
+import './styles/landing.css';
 
 // Import all your pages
 import LandingPage   from "./pages/LandingPage";
@@ -10,6 +12,7 @@ import AuthPage      from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import ChatPage      from "./pages/ChatPage";
 import CheckInPage   from "./pages/CheckInPage";
+
 import {
   JournalPage, NotificationsPage, PlansPage,
   ResourcesPage, EmergencyPage, AdminPage,
