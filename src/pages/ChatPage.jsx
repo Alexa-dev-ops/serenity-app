@@ -26,7 +26,14 @@ export default function ChatPage({ dash }) {
     const next = [...msgs, userMsg];
     setMsgs(next); setInput(""); setLoading(true);
     try {
-      const data = await api("POST", "/chat", { messages: next.map((m) => ({ role: m.role, content: m.content })) });
+      // Gemini requires chat history to start with role 'user'.
+      // Our local state always starts with a hardcoded assistant greeting
+      // for display purposes, so strip everything before the first
+      // real user message before sending to the backend/Gemini.
+      const firstUserIdx = next.findIndex((m) => m.role === "user");
+      const history = firstUserIdx === -1 ? [] : next.slice(firstUserIdx);
+
+      const data = await api("POST", "/chat", { messages: history.map((m) => ({ role: m.role, content: m.content })) });
       setMsgs((p) => [...p, { role: "assistant", content: data.reply || "I'm here.", time: TS() }]);
     } catch (err) {
       console.error("Chat API error:", err);
