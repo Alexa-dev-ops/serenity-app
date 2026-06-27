@@ -135,6 +135,7 @@ html, body, #root {
   display:flex; flex-direction:column;
   padding:24px 16px;
   position:relative;
+  min-height: 0;
 }
 .brand { padding:0 6px 24px; border-bottom:1px solid var(--border); margin-bottom:16px; }
 .brand-mark { display:flex; align-items:center; gap:10px; }
