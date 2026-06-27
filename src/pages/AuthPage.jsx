@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { RECOVERY_FOCUSES } from "../utils/constants";
 
-export default function AuthPage({ onLogin, onRegister }) {
-  const [mode, setMode] = useState("login");
+export default function AuthPage({ onLogin, onRegister, initialMode = "login" }) {
+  const [mode, setMode] = useState(initialMode);
   const [form, setForm] = useState({ name: "", email: "", password: "", recovery_focus: "Alcohol" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -71,7 +71,7 @@ export default function AuthPage({ onLogin, onRegister }) {
         </div>
         {mode === "login" && (
           <div style={{ marginTop: 16, padding: "10px 12px", background: "var(--bg3)", borderRadius: "var(--r)", fontSize: 12, color: "var(--text3)" }}>
-            Demo: alex@serenity.app / user123 &nbsp;·&nbsp; admin@serenity.app / admin123
+            {/* Demo: alex@serenity.app / user123 &nbsp;·&nbsp; admin@serenity.app / admin123 */}
           </div>
         )}
       </div>
