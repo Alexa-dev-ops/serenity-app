@@ -163,7 +163,7 @@ function MainApp() {
         </aside>
 
         {/* ── MAIN CONTENT (React Router Routes) ── */}
-        <main style={{ overflow:"hidden", display:"flex", flexDirection:"column", background:"var(--base)" }}>
+        <main style={{ overflow:"hidden", display:"flex", flexDirection:"column", background:"var(--base)", minHeight: 0 }}>
           <Routes>
             <Route path="/dashboard"     element={<DashboardPage dash={dash} error={error} setPage={(p) => navigate(`/${p}`)} onRefresh={refresh}/>} />
             <Route path="/chat"          element={<ChatPage dash={dash}/>} />
