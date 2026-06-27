@@ -18,7 +18,7 @@ export default function DashboardPage({ dash, error, setPage, onRefresh }) {
       <div className="h1">Good morning, {user.name.split(" ")[0]}.</div>
       <div className="sub">Day {streak} of your commitment. All data is live from your records.</div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 18 }}>
+     <div className="d-grid">
         <div className="card">
           <div className="card-label">Days Sober</div>
           <div className="stat-val sage">{streak}</div>
