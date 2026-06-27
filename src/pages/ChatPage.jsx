@@ -28,7 +28,8 @@ export default function ChatPage({ dash }) {
     try {
       const data = await api("POST", "/chat", { messages: next.map((m) => ({ role: m.role, content: m.content })) });
       setMsgs((p) => [...p, { role: "assistant", content: data.reply || "I'm here.", time: TS() }]);
-    } catch {
+    } catch (err) {
+      console.error("Chat API error:", err);
       setMsgs((p) => [...p, { role: "assistant", content: "Connection interrupted. Breathe. I'll be here when you're ready.", time: TS() }]);
     }
     setLoading(false);
@@ -43,12 +44,14 @@ export default function ChatPage({ dash }) {
           <div className="chat-status"><span className="pulse-dot"/>Recovery Specialist · Active</div>
         </div>
       </div>
+
       <div className="ctx-bar">
         <div className="ctx-chip">Mood <strong>{last ? `${last.mood}/5` : "—"}</strong></div>
         <div className="ctx-chip">Urge <strong>{last ? URGE_LABELS[last.urge] : "—"}</strong></div>
         <div className="ctx-chip">Day <strong>{dash?.streak ?? "—"}</strong></div>
         <div className="ctx-chip">Risk <strong style={{ color: RISK_COLOR[risk?.label] || "var(--text)" }}>{risk?.label || "—"}</strong></div>
       </div>
+
       <div className="msgs">
         {msgs.map((m, i) => (
           <div key={i} className={`msg ${m.role}`}>
@@ -69,6 +72,7 @@ export default function ChatPage({ dash }) {
         )}
         <div ref={endRef}/>
       </div>
+
       <div className="input-area">
         <div className="input-row">
           <textarea className="inp" rows={1} placeholder="Express what's happening right now..."
