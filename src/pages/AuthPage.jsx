@@ -12,20 +12,15 @@ export default function AuthPage({ onLogin, onRegister, initialMode = "login" })
   const set = (k, v) => setForm((p) => ({ ...p, [k]: v }));
 
   const submit = async (e) => {
-    // 1. Prevent hard page reload
     if (e) e.preventDefault();
-    
-    setError(""); 
+    setError("");
     setLoading(true);
-
     try {
       if (mode === "login") {
         await onLogin(form.email, form.password);
       } else {
         await onRegister(form);
       }
-      
-      // 2. Navigate to dashboard upon success
       navigate("/dashboard");
     } catch (e) {
       setError(e.message);
@@ -36,7 +31,6 @@ export default function AuthPage({ onLogin, onRegister, initialMode = "login" })
   return (
     <div className="auth-shell">
       <div className="auth-card">
-        {/* Wrap in form to properly handle the Enter key and prevent reloads */}
         <form onSubmit={submit}>
           <div className="auth-logo">
             <div className="auth-orb">✦</div>
@@ -48,43 +42,43 @@ export default function AuthPage({ onLogin, onRegister, initialMode = "login" })
               ? "Sign in to your account to continue."
               : "Create an account. Your data is private and encrypted."}
           </div>
-          
+
           {error && <div className="err-box">{error}</div>}
-          
+
           {mode === "register" && (
             <div className="field">
               <label>Full Name</label>
-              <input 
-                placeholder="Your name" 
-                value={form.name} 
+              <input
+                placeholder="Your name"
+                value={form.name}
                 onChange={(e) => set("name", e.target.value)}
                 required={mode === "register"}
               />
             </div>
           )}
-          
+
           <div className="field">
             <label>Email</label>
-            <input 
-              type="email" 
-              placeholder="you@example.com" 
-              value={form.email} 
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={form.email}
               onChange={(e) => set("email", e.target.value)}
               required
             />
           </div>
-          
+
           <div className="field">
             <label>Password</label>
-            <input 
-              type="password" 
-              placeholder="••••••••" 
+            <input
+              type="password"
+              placeholder="••••••••"
               value={form.password}
               onChange={(e) => set("password", e.target.value)}
               required
             />
           </div>
-          
+
           {mode === "register" && (
             <div className="field">
               <label>Recovery Focus</label>
@@ -93,7 +87,7 @@ export default function AuthPage({ onLogin, onRegister, initialMode = "login" })
               </select>
             </div>
           )}
-          
+
           <button className="auth-btn" type="submit" disabled={loading}>
             {loading ? "Please wait..." : mode === "login" ? "Sign In" : "Create Account"}
           </button>
