@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
-import { STYLES, IC } from "./components/UI";
+import { STYLES, IC } from "./components/UI.jsx";
 import { useAuth } from "./hooks/useAuth";
 import { useDashboard } from "./hooks/useDashboard";
 import './index.css';
