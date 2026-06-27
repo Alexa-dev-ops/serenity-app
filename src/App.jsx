@@ -4,6 +4,8 @@ import { STYLES, IC } from "./components/UI";
 import { useAuth } from "./hooks/useAuth";
 import { useDashboard } from "./hooks/useDashboard";
 
+// Import all your pages
+import LandingPage   from "./pages/LandingPage";
 import AuthPage      from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import ChatPage      from "./pages/ChatPage";
@@ -58,26 +60,30 @@ function MainApp() {
     );
   }
 
-  // ── Auth wall ───────────────────────────────────────────────────────────────
+  // ── Public Routes (Not logged in) ───────────────────────────────────────────
   if (!user) {
     return (
-      <>
-        <style>{STYLES}</style>
-        <AuthPage
-          initialMode={location.pathname === "/register" ? "register" : "login"}
-          onLogin={login}
-          onRegister={register}
-        />
-      </>
+      <Routes>
+        {/* The beautiful animated landing page */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* The login / register forms */}
+        <Route path="/login" element={<AuthPage initialMode="login" onLogin={login} onRegister={register} />} />
+        <Route path="/register" element={<AuthPage initialMode="register" onLogin={login} onRegister={register} />} />
+        
+        {/* If an unauthenticated user tries to go anywhere else, send them to the landing page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     );
   }
 
+  // ── Authenticated App Shell ─────────────────────────────────────────────────
+  
   // If logged in but sitting at root/auth URLs, send to dashboard
   if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/register") {
     return <Navigate to="/dashboard" replace />;
   }
 
-  // ── App shell ───────────────────────────────────────────────────────────────
   const risk   = dash?.risk   || { score: 0, label: "Low" };
   const unread = dash?.unreadNotifs || 0;
 
@@ -111,7 +117,6 @@ function MainApp() {
           </div>
 
           <nav className="nav">
-            {/* Sliding indicator */}
             <div className="nav-indicator" style={{
               top:    indicatorStyle.top,
               height: indicatorStyle.height,
@@ -123,7 +128,6 @@ function MainApp() {
                 key={n.id}
                 ref={(el) => { navRefs.current[n.id] = el; }}
                 className={`ni ${page === n.id ? "on" : ""}`}
-                // Use React Router navigation to prevent page reload
                 onClick={() => navigate(`/${n.id}`)}
               >
                 {IC[n.icon]}
@@ -135,8 +139,7 @@ function MainApp() {
 
           <div className="side-gap"/>
 
-          <div className={`risk-widget ${risk.label}`}
-            style={{ transition:"all .4s ease" }}>
+          <div className={`risk-widget ${risk.label}`} style={{ transition:"all .4s ease" }}>
             <div className={`rw-label ${risk.label}`}>
               Relapse Risk · {risk.label}
             </div>
@@ -156,10 +159,6 @@ function MainApp() {
         {/* ── MAIN CONTENT (React Router Routes) ── */}
         <main style={{ overflow:"hidden", display:"flex", flexDirection:"column", background:"var(--base)" }}>
           <Routes>
-            {/* 
-                Dashboard may have a nested prop expecting a function to change the page.
-                We wrap it to format the string for React Router. 
-            */}
             <Route path="/dashboard"     element={<DashboardPage dash={dash} error={error} setPage={(p) => navigate(`/${p}`)} onRefresh={refresh}/>} />
             <Route path="/chat"          element={<ChatPage dash={dash}/>} />
             <Route path="/checkin"       element={<CheckInPage onDone={refresh}/>} />
@@ -173,11 +172,9 @@ function MainApp() {
               <Route path="/admin" element={<AdminPage/>} />
             )}
             
-            {/* Catch-all fallback */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </main>
-
       </div>
     </>
   );
