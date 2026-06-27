@@ -1,4 +1,4 @@
-export const API_BASE = "http://localhost:4000/api";
+export const API_BASE = "https://serenity-backend-lr1p.onrender.com/api";
 
 export const getToken = () => localStorage.getItem("srnty_token");
 export const setToken = (t) => localStorage.setItem("srnty_token", t);
