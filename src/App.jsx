@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { STYLES, IC } from "./components/UI";
 import { useAuth } from "./hooks/useAuth";
 import { useDashboard } from "./hooks/useDashboard";
@@ -18,39 +19,20 @@ const RISK_MSG = {
   High:     "Multiple indicators active. Open AI Support now.",
 };
 
-const VALID_PAGES = ["dashboard","chat","checkin","journal","notifications","plans","resources","emergency","admin"];
-
-function getInitialPage() {
-  const hash = window.location.hash.replace("#", "");
-  return VALID_PAGES.includes(hash) ? hash : "dashboard";
-}
-
-export default function App() {
+// ── Inner App Component (Router Consumer) ─────────────────────────────────────
+function MainApp() {
   const { user, checked, login, register, logout } = useAuth();
   const { dash, error, refresh } = useDashboard();
 
-  const [page, setPage]         = useState(getInitialPage);
-  const [authMode, setAuthMode] = useState(
-    window.location.hash === "#register" ? "register" : "login"
-  );
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Derive current page from the URL path (remove leading slash)
+  const currentPath = location.pathname.replace("/", "");
+  const page = currentPath || "dashboard";
+
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0 });
   const navRefs = useRef({});
-
-  // Keep URL hash in sync so browser back/forward works
-  const navigate = (p) => {
-    setPage(p);
-    window.location.hash = p;
-  };
-
-  // Listen for hash changes (browser back button)
-  useEffect(() => {
-    const onHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (VALID_PAGES.includes(hash)) setPage(hash);
-    };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
 
   useEffect(() => { if (user) refresh(); }, [user]);
 
@@ -82,12 +64,17 @@ export default function App() {
       <>
         <style>{STYLES}</style>
         <AuthPage
-          initialMode={authMode}
+          initialMode={location.pathname === "/register" ? "register" : "login"}
           onLogin={login}
           onRegister={register}
         />
       </>
     );
+  }
+
+  // If logged in but sitting at root/auth URLs, send to dashboard
+  if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/register") {
+    return <Navigate to="/dashboard" replace />;
   }
 
   // ── App shell ───────────────────────────────────────────────────────────────
@@ -136,7 +123,8 @@ export default function App() {
                 key={n.id}
                 ref={(el) => { navRefs.current[n.id] = el; }}
                 className={`ni ${page === n.id ? "on" : ""}`}
-                onClick={() => navigate(n.id)}
+                // Use React Router navigation to prevent page reload
+                onClick={() => navigate(`/${n.id}`)}
               >
                 {IC[n.icon]}
                 {n.label}
@@ -165,20 +153,41 @@ export default function App() {
           </div>
         </aside>
 
-        {/* ── MAIN CONTENT ── */}
+        {/* ── MAIN CONTENT (React Router Routes) ── */}
         <main style={{ overflow:"hidden", display:"flex", flexDirection:"column", background:"var(--base)" }}>
-          {page === "dashboard"     && <DashboardPage     dash={dash} error={error} setPage={navigate} onRefresh={refresh}/>}
-          {page === "chat"          && <ChatPage          dash={dash}/>}
-          {page === "checkin"       && <CheckInPage       onDone={refresh}/>}
-          {page === "journal"       && <JournalPage/>}
-          {page === "notifications" && <NotificationsPage onRead={refresh}/>}
-          {page === "plans"         && <PlansPage/>}
-          {page === "resources"     && <ResourcesPage/>}
-          {page === "emergency"     && <EmergencyPage/>}
-          {page === "admin"         && <AdminPage/>}
+          <Routes>
+            {/* 
+                Dashboard may have a nested prop expecting a function to change the page.
+                We wrap it to format the string for React Router. 
+            */}
+            <Route path="/dashboard"     element={<DashboardPage dash={dash} error={error} setPage={(p) => navigate(`/${p}`)} onRefresh={refresh}/>} />
+            <Route path="/chat"          element={<ChatPage dash={dash}/>} />
+            <Route path="/checkin"       element={<CheckInPage onDone={refresh}/>} />
+            <Route path="/journal"       element={<JournalPage/>} />
+            <Route path="/notifications" element={<NotificationsPage onRead={refresh}/>} />
+            <Route path="/plans"         element={<PlansPage/>} />
+            <Route path="/resources"     element={<ResourcesPage/>} />
+            <Route path="/emergency"     element={<EmergencyPage/>} />
+            
+            {user.role === "admin" && (
+              <Route path="/admin" element={<AdminPage/>} />
+            )}
+            
+            {/* Catch-all fallback */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
         </main>
 
       </div>
     </>
+  );
+}
+
+// ── Exported App (Router Provider) ────────────────────────────────────────────
+export default function App() {
+  return (
+    <BrowserRouter>
+      <MainApp />
+    </BrowserRouter>
   );
 }
