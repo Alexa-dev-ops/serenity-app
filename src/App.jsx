@@ -80,6 +80,21 @@ function MainApp() {
     );
   }
 
+  // ── Public Routes (Not logged in) ───────────────────────────────────────────
+  if (!user) {
+    return (
+      <>
+        <style>{STYLES}</style>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<AuthPage initialMode="login" onLogin={login} onRegister={register} />} />
+          <Route path="/register" element={<AuthPage initialMode="register" onLogin={login} onRegister={register} />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </>
+    );
+  }
+
   // ── Authenticated App Shell ─────────────────────────────────────────────────
   
   // If logged in but sitting at root/auth URLs, send to dashboard
