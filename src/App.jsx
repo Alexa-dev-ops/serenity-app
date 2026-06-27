@@ -18,12 +18,39 @@ const RISK_MSG = {
   High:     "Multiple indicators active. Open AI Support now.",
 };
 
+const VALID_PAGES = ["dashboard","chat","checkin","journal","notifications","plans","resources","emergency","admin"];
+
+function getInitialPage() {
+  const hash = window.location.hash.replace("#", "");
+  return VALID_PAGES.includes(hash) ? hash : "dashboard";
+}
+
 export default function App() {
   const { user, checked, login, register, logout } = useAuth();
   const { dash, error, refresh } = useDashboard();
-  const [page, setPage]     = useState("dashboard");
+
+  const [page, setPage]         = useState(getInitialPage);
+  const [authMode, setAuthMode] = useState(
+    window.location.hash === "#register" ? "register" : "login"
+  );
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0 });
   const navRefs = useRef({});
+
+  // Keep URL hash in sync so browser back/forward works
+  const navigate = (p) => {
+    setPage(p);
+    window.location.hash = p;
+  };
+
+  // Listen for hash changes (browser back button)
+  useEffect(() => {
+    const onHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (VALID_PAGES.includes(hash)) setPage(hash);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
 
   useEffect(() => { if (user) refresh(); }, [user]);
 
@@ -36,24 +63,35 @@ export default function App() {
     }
   }, [page, user]);
 
-  if (!checked) return (
-    <>
-      <style>{STYLES}</style>
-      <div style={{ display:"flex", alignItems:"center", justifyContent:"center", height:"100vh", flexDirection:"column", gap:14 }}>
-        <div style={{ display:"flex", gap:6 }}><div className="ld"/><div className="ld"/><div className="ld"/></div>
-        <div style={{ fontSize:12, color:"var(--text3)", fontFamily:"DM Sans,sans-serif" }}>Loading Serenity...</div>
-      </div>
-    </>
-  );
+  // ── Loading splash ──────────────────────────────────────────────────────────
+  if (!checked) {
+    return (
+      <>
+        <style>{STYLES}</style>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"center", height:"100vh", flexDirection:"column", gap:14 }}>
+          <div style={{ display:"flex", gap:6 }}><div className="ld"/><div className="ld"/><div className="ld"/></div>
+          <div style={{ fontSize:12, color:"var(--text3)", fontFamily:"DM Sans,sans-serif" }}>Loading Serenity...</div>
+        </div>
+      </>
+    );
+  }
 
-  if (!user) return (
-    <>
-      <style>{STYLES}</style>
-      <AuthPage onLogin={login} onRegister={register}/>
-    </>
-  );
+  // ── Auth wall ───────────────────────────────────────────────────────────────
+  if (!user) {
+    return (
+      <>
+        <style>{STYLES}</style>
+        <AuthPage
+          initialMode={authMode}
+          onLogin={login}
+          onRegister={register}
+        />
+      </>
+    );
+  }
 
-  const risk   = dash?.risk || { score: 0, label: "Low" };
+  // ── App shell ───────────────────────────────────────────────────────────────
+  const risk   = dash?.risk   || { score: 0, label: "Low" };
   const unread = dash?.unreadNotifs || 0;
 
   const NAV = [
@@ -98,7 +136,7 @@ export default function App() {
                 key={n.id}
                 ref={(el) => { navRefs.current[n.id] = el; }}
                 className={`ni ${page === n.id ? "on" : ""}`}
-                onClick={() => setPage(n.id)}
+                onClick={() => navigate(n.id)}
               >
                 {IC[n.icon]}
                 {n.label}
@@ -129,7 +167,7 @@ export default function App() {
 
         {/* ── MAIN CONTENT ── */}
         <main style={{ overflow:"hidden", display:"flex", flexDirection:"column", background:"var(--base)" }}>
-          {page === "dashboard"     && <DashboardPage     dash={dash} error={error} setPage={setPage} onRefresh={refresh}/>}
+          {page === "dashboard"     && <DashboardPage     dash={dash} error={error} setPage={navigate} onRefresh={refresh}/>}
           {page === "chat"          && <ChatPage          dash={dash}/>}
           {page === "checkin"       && <CheckInPage       onDone={refresh}/>}
           {page === "journal"       && <JournalPage/>}
