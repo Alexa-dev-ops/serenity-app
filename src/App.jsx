@@ -66,29 +66,17 @@ function MainApp() {
   // ── Public Routes (Not logged in) ───────────────────────────────────────────
   if (!user) {
     return (
-      <Routes>
-        {/* The beautiful animated landing page */}
-        <Route path="/" element={<LandingPage />} />
-        
-        {/* The login / register forms */}
-        <Route path="/login" element={<AuthPage initialMode="login" onLogin={login} onRegister={register} />} />
-        <Route path="/register" element={<AuthPage initialMode="register" onLogin={login} onRegister={register} />} />
-        
-        {/* If an unauthenticated user tries to go anywhere else, send them to the landing page */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    );
-  }
-
-  // ── Public Routes (Not logged in) ───────────────────────────────────────────
-  if (!user) {
-    return (
       <>
         <style>{STYLES}</style>
         <Routes>
+          {/* The beautiful animated landing page */}
           <Route path="/" element={<LandingPage />} />
+
+          {/* The login / register forms */}
           <Route path="/login" element={<AuthPage initialMode="login" onLogin={login} onRegister={register} />} />
           <Route path="/register" element={<AuthPage initialMode="register" onLogin={login} onRegister={register} />} />
+
+          {/* If an unauthenticated user tries to go anywhere else, send them to the landing page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </>
@@ -96,7 +84,7 @@ function MainApp() {
   }
 
   // ── Authenticated App Shell ─────────────────────────────────────────────────
-  
+
   // If logged in but sitting at root/auth URLs, send to dashboard
   if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/register") {
     return <Navigate to="/dashboard" replace />;
@@ -185,11 +173,11 @@ function MainApp() {
             <Route path="/plans"         element={<PlansPage/>} />
             <Route path="/resources"     element={<ResourcesPage/>} />
             <Route path="/emergency"     element={<EmergencyPage/>} />
-            
+
             {user.role === "admin" && (
               <Route path="/admin" element={<AdminPage/>} />
             )}
-            
+
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </main>
