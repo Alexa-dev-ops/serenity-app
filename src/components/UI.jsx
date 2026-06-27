@@ -553,6 +553,8 @@ input[type=range] { position:absolute; inset:-8px 0; opacity:0; cursor:pointer; 
     padding: 10px 14px; border-right: none;
     border-bottom: 1px solid var(--border);
     overflow-x: auto; gap: 10px; min-height: 0;
+  .tbl { overflow-x: auto; }
+  .thr, .tr { min-width: 640px; }
   }
   .brand { display: none; }
   .nav { flex-direction: row; gap: 4px; overflow-x: auto; flex: 1; }
